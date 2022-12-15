@@ -49,3 +49,9 @@ There was a case where I had a component that needed multiple props passed in. I
 One way I've learned to consolidate is to group like props together into objects, that way objects can be passed instead of each individual prop.
 
 Came across this at: https://stackoverflow.com/questions/64386560/how-many-props-is-recommended-in-a-react-component#:~:text=I%20follow%20this%20rule%20of,clear%20and%20easy%20to%20maintain.
+
+### Fetching data from API
+
+Wasn't sure how to properly fetch dynamic data from an api within a react app. At first, I tried implemented a basic fetch within the functional component and needed to use an async call. Problem with this is that the functional component itself would have to be async. This led to more issues because I was now getting an error mentioning passing in an object as a component's child.
+
+After looking into this more, realized functional components handle "side effects" using hooks. Specifically the `useEffect` hook. After updating to using the hook instead, and removing the `async` keyword on the functional component, the app worked as expected.
