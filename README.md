@@ -55,3 +55,15 @@ Came across this at: https://stackoverflow.com/questions/64386560/how-many-props
 Wasn't sure how to properly fetch dynamic data from an api within a react app. At first, I tried implemented a basic fetch within the functional component and needed to use an async call. Problem with this is that the functional component itself would have to be async. This led to more issues because I was now getting an error mentioning passing in an object as a component's child.
 
 After looking into this more, realized functional components handle "side effects" using hooks. Specifically the `useEffect` hook. After updating to using the hook instead, and removing the `async` keyword on the functional component, the app worked as expected.
+
+Now, to properly set up fetching with error handling, I had to look into more solutions but eventually found one that made the most sense to me, which I was able to implement by following the walk through here: https://blog.logrocket.com/modern-api-data-fetching-methods-react/
+
+I chose this solution because it:
+
+1. used more modern async/await, which allowed for cleaner code
+2. try, catch for error handling
+3. leveraged `useState` hook to control different rendering states
+
+### onKeyDown vs onKeyPress
+
+Learned that `onKeyPress` event was deprecated so replaced it by using `onKeyDown` and the `e.keyCode` property to detect if the "Enter" button was pressed on input.
