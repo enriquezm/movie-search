@@ -23,38 +23,59 @@ const Grid = styled.ul`
 `;
 
 export default function MovieCardGrid() {
-  const [data, setData] = useState(null);
+  const [data , setData] = useState(null);
+  const [error, setError] = useState(null);
+
+  const [keyword, setKeyword] = useState('');
 
   useEffect(() => {
-    async function getData() {
-      const apiKey = process.env.REACT_APP_API_KEY;
+    const getData = async () => {
+      try {
+        const apiKey = process.env.REACT_APP_API_KEY;
+        const response = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${keyword}`);
 
-      const response = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=iron`);
-      const responseJson = await response.json();
+        if (!response.ok) {
+          setError('Error while fetching data');
+          setData(null);
+          throw Error('Could not fetch data');
+        }
 
-      const movieCards = responseJson.Search.map((movie) => {
-        return (
-          <li className='grid-item' key={movie.imdID}>
-            <MovieCard title={movie.Title} imageSrc={movie.Poster} year={movie.Year} />
-          </li>
-        );
-      });
+        const responseJson = await response.json();
 
-      setData(movieCards);
+        if (responseJson.Error) {
+          setError(responseJson.Error);
+        } else {
+          setError(null);
+        }
+
+        setData(responseJson.Search);
+      } catch(error) {
+        setError(error.message);
+        setData(null);
+      }
     }
+    
+    getData();
+  }, [keyword, setKeyword]);
 
-    if(!data) {
-      getData()
-    }
-  }, [data, setData]);
+  const handleClick = (input) => setKeyword(input);
 
   return (
     <>
-      <SearchBar />
+      <SearchBar handleClick={handleClick}  />
       <section>
         <Heading>Sharing a few of our favorite movies</Heading>
         <Grid>
-          { data }
+          { error && (<p>{error}</p>) }
+          {
+            data && data.map((movie) => {
+              return (
+                <li className='grid-item' key={movie.imdID}>
+                  <MovieCard title={movie.Title} imageSrc={movie.Poster} year={movie.Year} />
+                </li>
+              );
+            })
+          }
         </Grid>
       </section>
     </>

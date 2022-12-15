@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -16,15 +16,21 @@ const Button = styled.button`
   text-transform: uppercase;
 `;
 
-export default function SearchBar() {
-  const handleChange = event => console.log(event.target.value);
+export default function SearchBar({handleClick}) {
+  const [input, setInput] = useState('');
 
-  const handleClick = () => console.log('button clicked');
+  const handleChange = event => setInput(event.target.value);
+
+  const handleOnKeyDown = event => {
+    if (event.keyCode === 13) {
+      handleClick(input);
+    }
+  };
 
   return (
     <Container>
-      <Input type="text" onChange={handleChange} />
-      <Button onClick={handleClick}>Search</Button>
+      <Input type="text" onChange={handleChange} onKeyDown={handleOnKeyDown} />
+      <Button onClick={event => handleClick(input)}>Search</Button>
     </Container>
   );
 }
