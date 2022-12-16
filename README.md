@@ -8,6 +8,19 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Project is live [here](https://marvelous-capybara-5bb320.netlify.app/)
 
+## Future work
+
+Obviously there's a lot more this project needs, but that's outside the scope of what was required.
+
+Some future features, I'd like to add if I revisit this project:
+
+1. Responsive (mobile web, tablet)
+2. Theming
+3. Skeleton loader while fetching data
+4. Auto-complete (w debouncing) while searching
+5. Detailed view of each movie (plot, details, etc)
+6. Honestly there's a lot, but that wasn't the focus for this project, so I'll add those in another
+
 ## Notes/learnings while developing this project
 
 ### Number of props for a given component
