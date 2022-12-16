@@ -5,20 +5,28 @@ import SearchBar from './SearchBar';
 
 import styled from 'styled-components';
 
-const Heading = styled.h2`
-  font-size: 18px;
-  font-weight: 400;
-`;
-
-const Grid = styled.ul`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+const MainSection = styled.section`
   max-width: 1200px;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 
-  .grid-item {
-    list-style-type: none;
+  .heading {
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px 16px;
+    width: 100%;
+    padding: 0;
+
+    .grid-item {
+      list-style-type: none;
+    }
   }
 `;
 
@@ -63,9 +71,9 @@ export default function MovieCardGrid() {
   return (
     <>
       <SearchBar handleClick={handleClick}  />
-      <section>
-        <Heading>Sharing a few of our favorite movies</Heading>
-        <Grid>
+      <MainSection>
+        <h2 className="heading">Sharing a few of our favorite movies</h2>
+        <ul className="grid">
           { error && (<p>{error}</p>) }
           {
             data && data.map((movie) => {
@@ -76,8 +84,8 @@ export default function MovieCardGrid() {
               );
             })
           }
-        </Grid>
-      </section>
+        </ul>
+      </MainSection>
     </>
   );
 }
