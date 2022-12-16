@@ -40,7 +40,7 @@ export default function MovieCardGrid() {
     const getData = async () => {
       try {
         const apiKey = process.env.REACT_APP_API_KEY;
-        const response = await fetch(`http://www.omdbapi.com/?apikey=${apiKey}&s=${keyword}`);
+        const response = await fetch(`https://www.omdbapi.com/?apikey=${apiKey}&s=${keyword}`);
 
         if (!response.ok) {
           setError('Error while fetching data');
